@@ -1,0 +1,40 @@
+{
+  "extends": [
+    "react-app",
+    "plugin:cypress/recommended"
+  ],
+  "plugins": [
+    "react-hooks",
+    "sonarjs",
+    "cypress"
+  ],
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true,
+      "modules": true
+    },
+    "project": "./tsconfig.json"
+  },
+  "env": {
+    "jest": true,
+    "cypress/globals": true
+  },
+  "rules": {
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": [
+      "off",
+      {
+        "additionalHooks": "useRecoilCallback"
+      }
+    ],
+    "no-shadow": [
+      2,
+      {
+        "hoist": "all"
+      }
+    ],
+    "sonarjs/prefer-immediate-return": "error"
+  }
+}
