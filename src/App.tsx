@@ -1,7 +1,7 @@
 import './App.css';
 import React, { useEffect, useState } from 'react';
 import { csv } from 'd3-fetch';
-import { difference, index } from 'd3-array';
+import { difference } from 'd3-array';
 import MatrixTable from './components/MatrixTable';
 
 function App() {
