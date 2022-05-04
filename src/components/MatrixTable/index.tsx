@@ -16,6 +16,7 @@ const MatrixTable = ({
   xDimensionKey,
   yDimensionKey,
   measureKey,
+  onClick,
 }: MatrixProp) => {
   /******************************************
    * Constant / State
@@ -75,6 +76,7 @@ const MatrixTable = ({
                   xDimensionKey={xDimensionKey}
                   yDimensionKey={yDimensionKey}
                   measureKey={measureKey}
+                  onClick={onClick}
                 />
               </td>
             ) : null}

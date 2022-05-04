@@ -20,6 +20,7 @@ export interface HeatMapProp {
   xDimensionKey: DataKey;
   yDimensionKey: DataKey;
   measureKey: DataKey;
+  onClick?: (data: Data) => void;
 }
 
 /**
@@ -35,6 +36,7 @@ const HeatMap = ({
   xDimensionKey,
   yDimensionKey,
   measureKey,
+  onClick,
 }: HeatMapProp) => {
   /******************************************
    * Constant / State
@@ -102,7 +104,16 @@ const HeatMap = ({
       data.map((d) => d[measureKey]),
     );
 
-    const heatMap = svg.selectAll().data(data).enter().append('g');
+    const heatMap = svg
+      .selectAll()
+      .data(data)
+      .enter()
+      .append('g')
+      .on('click', (e, d) => {
+        if (onClick) {
+          onClick(d);
+        }
+      });
     appendRectToSelection({
       selection: heatMap,
       xScale,
