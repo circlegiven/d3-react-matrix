@@ -1,24 +1,39 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import React, { useEffect, useState } from 'react';
+import { csv } from 'd3-fetch';
+import { difference, index } from 'd3-array';
+import MatrixTable from './components/MatrixTable';
 
 function App() {
+  const [xAxis, setXAxis] = useState<any>(null);
+  const [yAxis, setYAxis] = useState<any>(null);
+  const [data, setData] = useState<any>(null);
+
+  useEffect(() => {
+    csv(
+      'https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/heatmap_data.csv',
+    ).then((d) => {
+      setData(d);
+      setXAxis(Array.from(difference(d.map((v) => v.group))));
+      setYAxis(Array.from(difference(d.map((v) => v.variable))));
+    });
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="MatrixGridArea">
+      <MatrixTable
+        xAxis={xAxis}
+        yAxis={yAxis}
+        data={data}
+        rectColor={{
+          lowColor: 'blue',
+          midColor: 'white',
+          highColor: 'red',
+        }}
+        xDimensionKey={'group'}
+        yDimensionKey={'variable'}
+        measureKey={'value'}
+      />
     </div>
   );
 }

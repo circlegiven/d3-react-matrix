@@ -1,38 +1,13 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
+.MatrixGridArea {display:flex; flex-direction: column; flex:1 1 auto; overflow: auto; border-bottom: 1px solid #d8d8d8; border-top:2px solid #0c254b;}
+.MatrixGrid {border-bottom: 1px solid #d8d8d8; table-layout: fixed; word-break: break-all; font-size: 12px;}
+.MatrixGrid thead th {max-height:70px; padding:8px 0; border-right:1px solid #777; border-bottom:1px solid #777; background:#dbeefa ; color:#111; font-weight: 700;}
+.MatrixGrid thead .PartHeader {background:#acc8f1;}
+.MatrixGrid thead .HeadSub {background:#feffea;}
+.MatrixHeader th:last-child, .MatrixRow td:last-child {border-right:none;}
+.MatrixRow {border-bottom:1px solid #d8d8d8;}
+.MatrixRow:last-child {border-bottom: none;}
+.MatrixRow td {border-right:1px solid #d8d8d8; color:#888; font-weight: 300; text-align: center;}
+.MatrixRow td:first-child {background:#f3f3f3; color:#111; border-right: 1px solid #d8d8d8;}
+.MatrixRow td.graph {padding:0; vertical-align: top; line-height: 8px; height:100%;}
+.MatrixRow td.graph svg {width:100%; height:100%;}
+.MatrixRow td.graph svg rect {min-height:30px; stroke:#aaa; stroke-width:0.1; stroke-linecap:butt; stroke-linejoin:miter;}
