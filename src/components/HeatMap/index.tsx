@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { select } from 'd3-selection';
+import * as d3 from 'd3';
 import {
   appendRectToSelection,
   appendTextToSelection,
@@ -20,7 +21,8 @@ export interface HeatMapProp {
   xDimensionKey: DataKey;
   yDimensionKey: DataKey;
   measureKey: DataKey;
-  onClick?: (data: Data) => void;
+  onClick?: (data?: Data) => void;
+  onBrushed?: (data?: Data) => void;
 }
 
 /**
@@ -37,6 +39,7 @@ const HeatMap = ({
   yDimensionKey,
   measureKey,
   onClick,
+  onBrushed,
 }: HeatMapProp) => {
   /******************************************
    * Constant / State
@@ -111,10 +114,11 @@ const HeatMap = ({
       .append('g')
       .on('click', (e, d) => {
         if (onClick) {
+          debugger;
           onClick(d);
         }
       });
-    appendRectToSelection({
+    const rects = appendRectToSelection({
       selection: heatMap,
       xScale,
       yScale,
@@ -131,6 +135,60 @@ const HeatMap = ({
       yDimensionKey,
       measureKey,
     });
+    svg.append('g').call(
+      d3
+        .brush()
+        .touchable(true)
+        .extent([
+          [0, 0],
+          [width, height],
+        ])
+        .on('end', ({ selection, sourceEvent: { x, y } }) => {
+          // @ts-ignore
+          // console.log(
+          //   rects.filter((d: Data) => {
+          //     const dataX = xScale(d[xDimensionKey]) as number;
+          //     const dataY = yScale(d[yDimensionKey]) as number;
+          //
+          //     return (
+          //       x >= dataX &&
+          //       x <= dataX + xScale.bandwidth() &&
+          //       y >= dataY &&
+          //       y <= dataY + yScale.bandwidth()
+          //     );
+          //   }),
+          // );
+
+          if (!onBrushed) {
+            return;
+          }
+
+          if (!selection) {
+            onBrushed();
+            return;
+          }
+
+          const [[x0, y0], [x1, y1]] = selection;
+          onBrushed(
+            rects
+              .filter((d: Data) => {
+                const dataX0 = xScale(d[xDimensionKey]) as number;
+                const dataX1 = dataX0 + xScale.bandwidth();
+                const dataY0 = yScale(d[yDimensionKey]) as number;
+                const dataY1 = dataY0 + yScale.bandwidth();
+                const centerX = (dataX0 + dataX1) / 2;
+                const centerY = (dataY0 + dataY1) / 2;
+                return (
+                  x0 <= centerX &&
+                  x1 >= centerX &&
+                  y0 <= centerY &&
+                  y1 >= centerY
+                );
+              })
+              .data(),
+          );
+        }),
+    );
   }, [xDimensionKey, yDimensionKey, measureKey, data, xAxis, yAxis]);
 
   /******************************************

@@ -8,6 +8,8 @@ function App() {
   const [xAxis, setXAxis] = useState<any>(null);
   const [yAxis, setYAxis] = useState<any>(null);
   const [data, setData] = useState<any>(null);
+  const [clickedData, setClickedData] = useState<any>(null);
+  const [brushedData, setBrushedData] = useState<any>(null);
 
   useEffect(() => {
     csv(
@@ -20,21 +22,27 @@ function App() {
   }, []);
 
   return (
-    <div className="MatrixGridArea">
-      <MatrixTable
-        xAxis={xAxis}
-        yAxis={yAxis}
-        data={data}
-        rectColor={{
-          lowColor: 'blue',
-          midColor: 'white',
-          highColor: 'red',
-        }}
-        xDimensionKey={'group'}
-        yDimensionKey={'variable'}
-        measureKey={'value'}
-      />
-    </div>
+    <>
+      <div className="MatrixGridArea">
+        <MatrixTable
+          xAxis={xAxis}
+          yAxis={yAxis}
+          data={data}
+          rectColor={{
+            lowColor: 'blue',
+            midColor: 'white',
+            highColor: 'red',
+          }}
+          xDimensionKey={'group'}
+          yDimensionKey={'variable'}
+          measureKey={'value'}
+          onClick={setClickedData}
+          onBrushed={setBrushedData}
+        />
+      </div>
+      <div>clicked: {JSON.stringify(clickedData)}</div>
+      <div>brushed: {JSON.stringify(brushedData)}</div>
+    </>
   );
 }
 

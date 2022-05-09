@@ -17,6 +17,7 @@ const MatrixTable = ({
   yDimensionKey,
   measureKey,
   onClick,
+  onBrushed,
 }: MatrixProp) => {
   /******************************************
    * Constant / State
@@ -77,6 +78,7 @@ const MatrixTable = ({
                   yDimensionKey={yDimensionKey}
                   measureKey={measureKey}
                   onClick={onClick}
+                  onBrushed={onBrushed}
                 />
               </td>
             ) : null}
