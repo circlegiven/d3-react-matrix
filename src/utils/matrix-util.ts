@@ -38,6 +38,15 @@ interface MatrixSelection {
   measureKey: DataKey;
 }
 
+interface MatrixCoordinateSelection
+  extends Omit<MatrixSelection, 'selection' | 'colorScale' | 'measureKey'> {
+  selection: Selection<SVGRectElement, Data, SVGSVGElement | null, unknown>;
+  x0: number;
+  x1: number;
+  y0: number;
+  y1: number;
+}
+
 export const appendRectToSelection = ({
   selection,
   xScale,
@@ -71,6 +80,50 @@ export const appendTextToSelection = ({
     .attr('text-anchor', 'middle')
     .attr('dominant-baseline', 'middle')
     .text((d) => d[measureKey]);
+
+export const getDataFromCoordinate = ({
+  selection,
+  x0,
+  y0,
+  xScale,
+  yScale,
+  xDimensionKey,
+  yDimensionKey,
+}: Omit<MatrixCoordinateSelection, 'x1' | 'y1'>) => {
+  const [data] = selection
+    .filter((d: Data) => {
+      const dataX0 = xScale(d[xDimensionKey]) as number;
+      const dataX1 = dataX0 + xScale.bandwidth();
+      const dataY0 = yScale(d[yDimensionKey]) as number;
+      const dataY1 = dataY0 + yScale.bandwidth();
+      return x0 >= dataX0 && x0 <= dataX1 && y0 >= dataY0 && y0 <= dataY1;
+    })
+    .data();
+  return data;
+};
+
+export const getDataListFromRects = ({
+  selection,
+  x0,
+  x1,
+  y0,
+  y1,
+  xScale,
+  yScale,
+  xDimensionKey,
+  yDimensionKey,
+}: MatrixCoordinateSelection) =>
+  selection
+    .filter((d: Data) => {
+      const dataX0 = xScale(d[xDimensionKey]) as number;
+      const dataX1 = dataX0 + xScale.bandwidth();
+      const dataY0 = yScale(d[yDimensionKey]) as number;
+      const dataY1 = dataY0 + yScale.bandwidth();
+      const centerX = (dataX0 + dataX1) / 2;
+      const centerY = (dataY0 + dataY1) / 2;
+      return x0 <= centerX && x1 >= centerX && y0 <= centerY && y1 >= centerY;
+    })
+    .data();
 
 function extentValues(values: number[]) {
   const minValue = min(values);
