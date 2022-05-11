@@ -48,6 +48,10 @@ const HeatMap = ({
    * ****************************************/
 
   const svgRef = useRef<SVGSVGElement>(null);
+  const mouseCoordinates = useRef<{
+    x?: number;
+    y?: number;
+  }>({});
 
   /******************************************
    * Global State
@@ -60,6 +64,17 @@ const HeatMap = ({
   /******************************************
    * Function
    * ****************************************/
+
+  function updateMouseCoordinates(x: number, y: number) {
+    mouseCoordinates.current = {
+      x,
+      y,
+    };
+  }
+
+  function getMouseCoordinates() {
+    return mouseCoordinates.current;
+  }
 
   function isEmptyData(d: any[]) {
     return (d ?? []).length === 0;
@@ -140,19 +155,22 @@ const HeatMap = ({
     svg.append('g').call(
       d3
         .brush()
-        .touchable(true)
         .extent([
           [0, 0],
           [width, height],
         ])
-        .on('end', ({ selection, sourceEvent }) => {
+        .on('start', ({ selection }) => {
+          const [[x, y]] = selection;
+          updateMouseCoordinates(x, y);
+        })
+        .on('end', ({ selection }) => {
           // click
           if (!selection && onClick) {
             onClick(
               getDataFromCoordinate({
                 selection: rects,
-                x0: sourceEvent.offsetX,
-                y0: sourceEvent.offsetY,
+                x0: getMouseCoordinates().x,
+                y0: getMouseCoordinates().y,
                 xScale,
                 yScale,
                 xDimensionKey,

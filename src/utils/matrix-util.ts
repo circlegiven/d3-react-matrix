@@ -41,10 +41,10 @@ interface MatrixSelection {
 interface MatrixCoordinateSelection
   extends Omit<MatrixSelection, 'selection' | 'colorScale' | 'measureKey'> {
   selection: Selection<SVGRectElement, Data, SVGSVGElement | null, unknown>;
-  x0: number;
-  x1: number;
-  y0: number;
-  y1: number;
+  x0?: number;
+  x1?: number;
+  y0?: number;
+  y1?: number;
 }
 
 export const appendRectToSelection = ({
@@ -90,6 +90,9 @@ export const getDataFromCoordinate = ({
   xDimensionKey,
   yDimensionKey,
 }: Omit<MatrixCoordinateSelection, 'x1' | 'y1'>) => {
+  if (x0 === undefined || y0 === undefined) {
+    return null;
+  }
   const [data] = selection
     .filter((d: Data) => {
       const dataX0 = xScale(d[xDimensionKey]) as number;
@@ -112,8 +115,16 @@ export const getDataListFromRects = ({
   yScale,
   xDimensionKey,
   yDimensionKey,
-}: MatrixCoordinateSelection) =>
-  selection
+}: MatrixCoordinateSelection) => {
+  if (
+    x0 === undefined ||
+    y0 === undefined ||
+    x1 === undefined ||
+    y1 === undefined
+  ) {
+    return null;
+  }
+  return selection
     .filter((d: Data) => {
       const dataX0 = xScale(d[xDimensionKey]) as number;
       const dataX1 = dataX0 + xScale.bandwidth();
@@ -124,6 +135,7 @@ export const getDataListFromRects = ({
       return x0 <= centerX && x1 >= centerX && y0 <= centerY && y1 >= centerY;
     })
     .data();
+};
 
 function extentValues(values: number[]) {
   const minValue = min(values);
