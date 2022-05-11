@@ -21,7 +21,11 @@
     "jsx": "react",
     "noImplicitAny": true,
     "emitDecoratorMetadata": true,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "strictNullChecks": true,
+    "noImplicitReturns": true,
+    "strictFunctionTypes": true,
+    "strictPropertyInitialization": true
   },
   "include": [
     "src"
