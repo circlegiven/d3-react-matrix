@@ -1,5 +1,4 @@
 src/index.tsx
-src/stories/Introduction.stories.mdx
 src/reportWebVitals.ts
 src/assets
 
@@ -17,7 +16,6 @@ README.md
 package.json
 tsconfig.json
 yarn.lock
-.gitattributes
 .eslintrc.json
 cypress.json
 cypress/fixtures
