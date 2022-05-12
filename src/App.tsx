@@ -36,14 +36,14 @@ function App() {
         <div style={{ width: '50%' }}>
           <h2>clicked:</h2>
           <ReactJson
-            src={clickedData}
+            src={clickedData ?? {}}
             style={{ height: '100%', overflow: 'auto' }}
           />
         </div>
         <div style={{ width: '50%' }}>
           <h2>brushed:</h2>
           <ReactJson
-            src={brushedData}
+            src={brushedData ?? []}
             style={{ height: '100%', overflow: 'auto' }}
           />
         </div>
