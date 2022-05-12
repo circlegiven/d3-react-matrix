@@ -18,4 +18,4 @@ Check it easy to:
 
 ## Demo
 
-![Capto_Capture-2022-05-11_10-24-41_AM](https://user-images.githubusercontent.com/41019113/167755096-c06d9cce-616a-4228-9452-cb85166c871d.gif)
+![Capto_Capture-2022-05-12_02-29-59_PM](https://user-images.githubusercontent.com/41019113/167999195-17d0df44-650a-4261-8415-d0db3880d99c.gif)
