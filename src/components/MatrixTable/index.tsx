@@ -16,6 +16,7 @@ const MatrixTable = ({
   xDimensionKey,
   yDimensionKey,
   measureKey,
+  fontSize,
   onClick,
   onBrushed,
 }: MatrixProp) => {
@@ -77,6 +78,7 @@ const MatrixTable = ({
                   xDimensionKey={xDimensionKey}
                   yDimensionKey={yDimensionKey}
                   measureKey={measureKey}
+                  fontSize={fontSize}
                   onClick={onClick}
                   onBrushed={onBrushed}
                 />

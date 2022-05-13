@@ -23,6 +23,7 @@ export interface HeatMapProp {
   xDimensionKey: DataKey;
   yDimensionKey: DataKey;
   measureKey: DataKey;
+  fontSize?: number;
   onClick?: (data: Data | null | undefined) => void;
   onBrushed?: (data: Data | null | undefined) => void;
 }
@@ -40,6 +41,7 @@ const HeatMap = ({
   xDimensionKey,
   yDimensionKey,
   measureKey,
+  fontSize,
   onClick,
   onBrushed,
 }: HeatMapProp) => {
@@ -151,6 +153,7 @@ const HeatMap = ({
       xDimensionKey,
       yDimensionKey,
       measureKey,
+      fontSize,
     });
     svg.append('g').call(
       d3

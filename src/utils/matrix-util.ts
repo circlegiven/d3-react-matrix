@@ -38,6 +38,10 @@ interface MatrixSelection {
   measureKey: DataKey;
 }
 
+interface MatrixTextSelection extends Omit<MatrixSelection, 'colorScale'> {
+  fontSize?: number;
+}
+
 interface MatrixCoordinateSelection
   extends Omit<MatrixSelection, 'selection' | 'colorScale' | 'measureKey'> {
   selection: Selection<SVGRectElement, Data, SVGSVGElement | null, unknown>;
@@ -71,12 +75,13 @@ export const appendTextToSelection = ({
   xDimensionKey,
   yDimensionKey,
   measureKey,
-}: Omit<MatrixSelection, 'colorScale'>) =>
+  fontSize = 10,
+}: MatrixTextSelection) =>
   selection
     .append('text')
     .attr('x', (d) => (xScale(d[xDimensionKey]) ?? 0) + xScale.bandwidth() / 2)
     .attr('y', (d) => (yScale(d[yDimensionKey]) ?? 0) + yScale.bandwidth() / 2)
-    .attr('font-size', 10)
+    .attr('font-size', fontSize)
     .attr('text-anchor', 'middle')
     .attr('dominant-baseline', 'middle')
     .text((d) => d[measureKey]);
