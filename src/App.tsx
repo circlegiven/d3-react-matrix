@@ -33,18 +33,34 @@ function App() {
         />
       </div>
       <div style={{ flex: '1 0 0', display: 'flex', overflow: 'hidden' }}>
-        <div style={{ width: '50%' }}>
+        <div
+          style={{
+            display: 'flex',
+            flex: '1 0 0',
+            paddingLeft: 10,
+            flexDirection: 'column',
+          }}>
           <h2>clicked:</h2>
           <ReactJson
             src={clickedData ?? {}}
-            style={{ height: '100%', overflow: 'auto' }}
+            style={{
+              overflowY: 'auto',
+            }}
           />
         </div>
-        <div style={{ width: '50%' }}>
+        <div
+          style={{
+            display: 'flex',
+            flex: '1 0 0',
+            paddingLeft: 10,
+            flexDirection: 'column',
+          }}>
           <h2>brushed:</h2>
           <ReactJson
             src={brushedData ?? []}
-            style={{ height: '100%', overflow: 'auto' }}
+            style={{
+              overflowY: 'auto',
+            }}
           />
         </div>
       </div>
