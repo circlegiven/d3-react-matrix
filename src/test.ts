@@ -45,8 +45,8 @@ export const yAxis = [
   '2019-01-01',
 ];
 
-export async function testDataGenerate() {
-  return await csv(
+export function testDataGenerate() {
+  return csv(
     'https://static.observableusercontent.com/files/aec3792837253d4c6168f9bbecdf495140a5f9bb1cdb12c7c8113cec26332634a71ad29b446a1e8236e0a45732ea5d0b4e86d9d1568ff5791412f093ec06f4f1',
   ).then((d) => {
     return (d ?? [])
