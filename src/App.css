@@ -1,4 +1,4 @@
-.MatrixGrid {border-bottom: 1px solid #d8d8d8; table-layout: fixed; word-break: break-all; font-size: 12px;}
+.MatrixGrid {border-bottom: 1px solid #d8d8d8; table-layout: fixed; word-break: break-all; font-size: 12px; border-collapse: collapse;}
 .MatrixGrid thead th {max-height:70px; padding:8px 0; border-right:1px solid #777; border-bottom:1px solid #777; background:#dbeefa ; color:#111; font-weight: 700;}
 .MatrixGrid thead .PartHeader {background:#acc8f1;}
 .MatrixGrid thead .HeadSub {background:#feffea;}
