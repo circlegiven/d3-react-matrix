@@ -133,9 +133,8 @@ const HeatMap = ({
       .data(data)
       .enter()
       .append('g')
-      .on('click', (d) => {
+      .on('click', (_, d) => {
         if (onClick) {
-          debugger;
           onClick(d);
         }
       });
